@@ -7,5 +7,9 @@
   <body>
     <h1><%= title %></h1>
     <p>EJS Welcome to <%= title %></p>
+    <div>你好 <%= name %></div>
+    <hr>
+    <%- include("widgets/user-info", {isMe}) %> 
+    <%- include("widgets/blog-list", {blogList}) %> 
   </body>
 </html>
