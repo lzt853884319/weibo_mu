@@ -1,3 +1,3 @@
 const {set} = require("./_redis");
 
-set()
+set();
