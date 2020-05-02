@@ -7,13 +7,14 @@
     "dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www",
     "dev:vscode": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon --inspect-brk=9229 bin/www",
     "prd": "cross-env NODE_ENV=production pm2 start bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors",
     "lint": "eslint --ext .js ./src"
   },
   "dependencies": {
     "cross-env": "^7.0.2",
     "debug": "^4.1.1",
     "ejs": "~2.3.3",
+    "jest": "^25.5.4",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-convert": "^1.2.0",
@@ -28,7 +29,8 @@
     "mysql2": "^2.1.0",
     "pre-commit": "^1.2.2",
     "redis": "^3.0.2",
-    "sequelize": "^5.21.7"
+    "sequelize": "^5.21.7",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
