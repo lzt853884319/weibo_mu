@@ -3,19 +3,19 @@
 * 
 */ 
 
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 const {MYSQL_CONF} = require("../conf/db");
 const {isProd, isTest} = require("../utils/env");
 
 
 const {host, user, password, database} = MYSQL_CONF;
 const config = {
-    host: 'localhost',
-    dialect: 'mysql'  
+    host,
+    dialect: "mysql"  
 };
  
 if(isTest) {
-    config.logging = () => {}
+    config.logging = () => {};
 }
 // 线上环境
 if(isProd) {
@@ -23,7 +23,7 @@ if(isProd) {
         max: 5,
         min: 0,
         idle: 10000, // 如果一个连接池 10 s没有使用则释放 
-    }
+    };
 }
 const seq = new Sequelize(database, user, password, config);
 

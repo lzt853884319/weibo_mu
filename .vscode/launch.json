@@ -7,11 +7,16 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "启动程序",
+            "name": "debugger dev",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/www"
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "dev"
+            ],
+            "port": 9229
         }
     ]
 }

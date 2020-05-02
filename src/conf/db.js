@@ -12,29 +12,29 @@ let REDIS_CONF = {
 };
 
 let MYSQL_CONF = {
-    host: 'localhost',
-    user: 'root',
-    password: 'qw5433037',
-    port: '3306',
-    database: 'koa2_weibo_db'
-}
+    host: "localhost",
+    user: "root",
+    password: "qw5433037",
+    port: "3306",
+    database: "koa2_weibo_db"
+};
 
-if(!prod) {
+if(isProd) {
     REDIS_CONF = {
         // 线上的redis 配置
         port: 6379,
-        host: '127.0.0.1'
-    }
+        host: "127.0.0.1"
+    };
     MYSQL_CONF = {
-        host: 'localhost',
-        user: 'root',
-        password: 'qw5433037',
-        port: '3306',
-        database: 'koa2_weibo_db'
-    }
+        host: "localhost",
+        user: "root",
+        password: "qw5433037",
+        port: "3306",
+        database: "koa2_weibo_db"
+    };
 }
 
 module.exports = {
     REDIS_CONF,
     MYSQL_CONF
-}
+};
