@@ -25,5 +25,17 @@ router.get("/json", async (ctx, _next) => {
     title: "koa2 json"
   };
 });
+router.get("/demo", async (ctx, _next) => {
+  const session = ctx.session;
+  if(null == session.viewNum) {
+    session.viewNum = 0;
+  } else {
+    session.viewNum ++;
+  }
+  ctx.body = {
+    title: "koa2 demo",
+    viewNum: session.viewNum
+  };
+});
 
 module.exports = router;

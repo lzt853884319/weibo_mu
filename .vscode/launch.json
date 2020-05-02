@@ -14,7 +14,7 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "dev"
+                "dev:vscode"
             ],
             "port": 9229
         }
