@@ -4,7 +4,7 @@
 // const Sequelize = require("sequelize");
 const seq = require("./seq");
 
-   require("./model"); 
+require("./model"); 
  
 seq.authenticate().then(() => {
     console.log("auth ok");

@@ -3,13 +3,13 @@
  * @author drdp
  */
 
- const router = require("koa-router")();
+const router = require("koa-router")();
 
- router.get("/error", async (ctx, _next) => {
+router.get("/error", async (ctx, _next) => {
     await ctx.render("error");
- });
+});
 
- router.get("*", async (ctx, _next) => {
+router.get("*", async (ctx, _next) => {
     await ctx.render("404");
- });
- module.exports = router;
+});
+module.exports = router;
