@@ -6,11 +6,19 @@ const onerror = require("koa-onerror");
 const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
 
+// 路由
 const index = require("./routes/index");
 const users = require("./routes/users");
+const errorViewRouter = require("./routes/view/error");
+const { isProd } = require("./utils/env");
 
 // error handler
-onerror(app);
+
+const onErrConfig = isProd ? {
+  redirect: "error"
+} : {};
+
+onerror(app, onErrConfig);
 
 // middlewares
 app.use(bodyparser({
@@ -32,9 +40,10 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
-// routes
+// routesa
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
+app.use(errorViewRouter.routes(), index.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {

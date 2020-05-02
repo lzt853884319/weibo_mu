@@ -3,7 +3,7 @@
  * @author drdp
 */
 
-const { isProd } = false; // require("../utils/env");
+const { isProd } = require("../utils/env");
 
 
 let REDIS_CONF = {

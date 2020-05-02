@@ -20,6 +20,7 @@ router.get("/", async (ctx, _next) => {
 });
 
 router.get("/json", async (ctx, _next) => {
+  ctx.throw(400, "name required");
   ctx.body = {
     title: "koa2 json"
   };
