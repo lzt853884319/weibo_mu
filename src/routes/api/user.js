@@ -6,7 +6,7 @@
 //  接受参数  解析参数  返回结果
 
 const router = require("koa-router")();
-const {isExist, register} = require("../../controller/user");
+const {isExist, register, login} = require("../../controller/user");
 const userValidate = require("../../validator/use");
 const {generateValidator} = require("../../middleware/validator");
 
@@ -27,5 +27,12 @@ router.post("/isExist", async (ctx, _next) => {
     const {userName} = ctx.request.body;
     // controller
     ctx.body = await isExist(userName);
+});
+
+// 登录
+router.post("./login", async (ctx, _next) => {
+    const {userName, password} = ctx.request.body;
+    ctx.body = await login(ctx, userName, password);
+    // controller
 });
 module.exports = router;
