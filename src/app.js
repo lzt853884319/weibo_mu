@@ -11,7 +11,8 @@ const redisStore = require("koa-redis");
 
 // 路由
 const index = require("./routes/index");
-const users = require("./routes/users");
+const userAPIRouter = require("./routes/api/user");
+const userViewRouter = require("./routes/view/user");
 const errorViewRouter = require("./routes/view/error");
 const { isProd } = require("./utils/env");
 const {REDIS_CONF} = require("./conf/db");
@@ -61,8 +62,9 @@ app.use(async (ctx, next) => {
 
 // routesa
 app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
-app.use(errorViewRouter.routes(), index.allowedMethods());
+app.use(userAPIRouter.routes(), index.allowedMethods()); // 注册api
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods());
+app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()); // 404     
 
 // error-handling
 app.on("error", (err, ctx) => {
