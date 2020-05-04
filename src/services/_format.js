@@ -8,6 +8,7 @@ const _formatUserPicture = (obj) => {
     if(obj.picture == null) {
         obj.picture = DEFAULT_USERINFO_PICTURE;
     }
+    return obj;
 };
 
 /**

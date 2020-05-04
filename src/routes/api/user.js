@@ -30,7 +30,7 @@ router.post("/isExist", async (ctx, _next) => {
 });
 
 // 登录
-router.post("./login", async (ctx, _next) => {
+router.post("/login", async (ctx, _next) => {
     const {userName, password} = ctx.request.body;
     ctx.body = await login(ctx, userName, password);
     // controller

@@ -38,10 +38,10 @@ app.use(views(__dirname + "/views", {
     extension: "ejs"
 }));
 
-app.keys = CRYPTO_SESSION_KEY;
+app.keys = [CRYPTO_SESSION_KEY];
 app.use(session({
     key: "weibo.sid", // cookie 的name  默认 koa.id
-    prefix: "weibo:session", // redis key 的前缀 默认是 koa.sess
+    prefix: "weibo:ses", // redis key 的前缀 默认是 koa.sess
     cookie: {
         path: "/", // 根目录
         httpOnly: true, // 只能用服务器端改cookie
