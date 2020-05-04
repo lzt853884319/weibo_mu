@@ -3,13 +3,14 @@
  * @author lzt
  */
 
-const {getUserInfo, createUser} = require("../services/user");
+const {getUserInfo, createUser, deleteUser} = require("../services/user");
 const {SuccessModel, ErrorModel} = require("../model/ResModel");
 const {
     registerUserNameNotExistInfo,
     registerUserNameExistInfo,
     registerFailInfo,
-    loginFailInfo
+    loginFailInfo,
+    deleteUserFailInfo
 } = require("../model/ErrInfo");
 
 const {doCrypto} = require("../utils/crypto");
@@ -75,8 +76,19 @@ const login = async (ctx, userName, password) => {
         return new SuccessModel();
     }
 };
+
+const deleteCurUser = async (userName) => {
+    // service 
+    const result = await deleteUser(userName);
+    if(result) {
+        // 成功 
+        return new SuccessModel();
+    }
+    return new ErrorModel(deleteUserFailInfo);
+};
 module.exports = {
     isExist,
     register,
-    login
+    login,
+    deleteCurUser
 };
