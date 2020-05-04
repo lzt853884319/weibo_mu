@@ -3,14 +3,21 @@
  * @author lzt
  */
 
+//  接受参数  解析参数  返回结果
+
 const router = require("koa-router")();
-const {isExist} = require("../../controller/user");
+const {isExist, register} = require("../../controller/user");
 
 router.prefix("/api/user");
 
 // 注册
-router.post("/register", async (_ctx, _next) => {
-
+router.post("/register", async (ctx, _next) => {
+    const {userName, password, gender} = ctx.request.body;
+    ctx.body = await register({
+        userName,
+        password,
+        gender
+    });
 });
 
 // 用户是否存在

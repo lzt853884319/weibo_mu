@@ -3,9 +3,15 @@
  * @author lzt
  */
 
-const {getUserInfo} = require("../services/user");
+const {getUserInfo, createUser} = require("../services/user");
 const {SuccessModel, ErrorModel} = require("../model/ResModel");
-const {registerUserNameNotExistInfo} = require("../model/ErrInfo");
+const {
+    registerUserNameNotExistInfo,
+    registerUserNameExistInfo,
+    registerFailInfo
+} = require("../model/ErrInfo");
+
+const {doCrypto} = require("../utils/crypto");
 /**
  * @description 用户名是否存在
  * @param {String} userName 用户名
@@ -16,13 +22,38 @@ const isExist = async (userName) => {
     const userInfo = await getUserInfo(userName);
     if(userInfo) {
         // 已存在
-        return new SuccessModel(0, userInfo);
+        return new SuccessModel(userInfo);
     } else {
         // 不存在
-        return new ErrorModel(registerUserNameNotExistInfo);
+        const result = new ErrorModel(registerUserNameNotExistInfo);
+        return result;
     }
     // 返回统一格式
 };
+/**
+ * @description 注册接口
+ * @param {String} userName 
+ * @param {String} password 
+ * @param {number} gender 1 male 2 female 3orther
+ */
+const register = async ({userName, password, gender}) => {
+    const userInfo = await getUserInfo(userName);
+    if(userInfo) {
+        return new ErrorModel(registerUserNameExistInfo);
+    }
+    try {
+        const userInfo = await createUser({
+            userName,
+            password: doCrypto(password),
+            gender
+        });
+        return new SuccessModel(userInfo);
+    } catch(e) {
+        console.error(e.message, e.stack);
+        return new ErrorModel(registerFailInfo);
+    }
+};
 module.exports = {
-    isExist
+    isExist,
+    register
 };

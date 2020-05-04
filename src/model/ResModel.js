@@ -8,27 +8,27 @@
   */
 
 class BaseModel {
-    constructor({errno, data, msg}) {
+    constructor({errno, data, message}) {
         this.errno = errno;
         data && (this.data = data);
-        msg && (this.msg = msg);
+        message && (this.message = message);
     }
 }
 
 class SuccessModel extends BaseModel {
-    constructor(errno, data = {}) {
+    constructor(data = {}) {
         super({
-            errno,
+            errno: 0,
             data
         });
     }
 }
 
 class ErrorModel extends BaseModel {
-    constructor(errno, msg) {
+    constructor({errno, message}) {
         super({
             errno,
-            msg
+            message
         });
     }
 }

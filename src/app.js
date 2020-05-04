@@ -15,6 +15,7 @@ const userAPIRouter = require("./routes/api/user");
 const userViewRouter = require("./routes/view/user");
 const errorViewRouter = require("./routes/view/error");
 const { isProd } = require("./utils/env");
+const {CRYPTO_SESSION_KEY} = require("./conf/secretKeys");
 const {REDIS_CONF} = require("./conf/db");
 
 // error handler
@@ -37,7 +38,7 @@ app.use(views(__dirname + "/views", {
     extension: "ejs"
 }));
 
-app.keys = ["UDIasdf_keys"];
+app.keys = CRYPTO_SESSION_KEY;
 app.use(session({
     key: "weibo.sid", // cookie 的name  默认 koa.id
     prefix: "weibo:session", // redis key 的前缀 默认是 koa.sess
