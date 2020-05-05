@@ -59,8 +59,46 @@ const deleteUser = async (userName)=> {
     return result > 0;
 };
 
+/**
+ * 
+ * @param {Objcet} newParams 新信息
+ * @param {Object} oldParamas 原信息 
+ */
+async function updateUser (
+    {newPassWord, newNickName, newCity, newPicture},
+    {userName, password}
+) {
+    // 拼接修改内容
+    const updateData = {};
+    if(newPassWord) {
+        updateData.password = newPassWord;
+    }
+    if(newNickName) {
+        updateData.nickName = newNickName;
+    }
+    if(newCity) {
+        updateData.city = newCity;
+    }
+    if(newPicture) {
+        updateData.picture = newPicture;
+    }
+    // 拼接查询条件
+    const whereData = {
+        userName
+    };
+    if(password) {
+        whereData.password = password;
+    }
+    // 执行修改
+    const result = await User.update(updateData, {
+        where: whereData
+    });
+    return result[0] > 0; // 修改的行数
+}
+
 module.exports = {
     getUserInfo,
     createUser,
-    deleteUser
+    deleteUser,
+    updateUser
 };
