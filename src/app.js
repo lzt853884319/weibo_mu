@@ -8,9 +8,11 @@ const logger = require("koa-logger");
 
 const session = require("koa-generic-session");
 const redisStore = require("koa-redis");
-
+const koaStatic = require("koa-static");
+const path = require("path");
 // 路由
 const index = require("./routes/index");
+const utilsAPIRouter = require("./routes/api/utils");
 const userAPIRouter = require("./routes/api/user");
 const userViewRouter = require("./routes/view/user");
 const errorViewRouter = require("./routes/view/error");
@@ -32,7 +34,10 @@ app.use(bodyparser({
 }));
 app.use(json());
 app.use(logger());
-app.use(require("koa-static")(__dirname + "/public"));
+app.use(koaStatic(__dirname + "/public"));
+app.use(koaStatic(path.join(__dirname, "..", "uploadFiles")));
+// app.use(koaStatic(__dirname +  "../uploadFiles"));
+
 
 app.use(views(__dirname + "/views", {
     extension: "ejs"
@@ -63,6 +68,7 @@ app.use(async (ctx, next) => {
 
 // routesa
 app.use(index.routes(), index.allowedMethods());
+app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods());
 app.use(userAPIRouter.routes(), index.allowedMethods()); // 注册api
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods());
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()); // 404     
