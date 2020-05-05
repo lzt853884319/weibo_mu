@@ -65,6 +65,30 @@ test("登录 应该成功", async () => {
     // 获取cookie
     COOKIE = res.headers["set-cookie"].join(";");
 });
+// 修改
+test("修改基本信息", async () => {
+    const res = await server
+        .patch("/api/user/changeInfo")
+        .send({
+            nickName: "昵称测试",
+            city: "测试城市",
+            picture: "/test.png"
+        })
+        .set("cookie", COOKIE);
+    expect(res.body.errno).toBe(0);
+});
+
+// 修改
+test("修改密码", async () => {
+    const res = await server
+        .patch("/api/user/changePassword")
+        .send({
+            password,
+            newPassword: `p_${Date.now()}`
+        })
+        .set("cookie", COOKIE);
+    expect(res.body.errno).toBe(0);
+});
 
 // 删除用户 
 test("删除用户 应该成功", async () => {
@@ -80,4 +104,13 @@ test("删除之后 再次查询 应该不存在", async () => {
         .post("/api/user/isExist")
         .send(testUser);
     expect(res.body.errno).not.toBe(0);
+});
+
+
+// 退出登录
+test("退出登录 应该成功", async () => {
+    const res = await server
+        .post("/api/user/logout")
+        .set("cookie", COOKIE);
+    expect(res.body.errno).toBe(0);
 });
