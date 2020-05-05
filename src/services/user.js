@@ -65,13 +65,13 @@ const deleteUser = async (userName)=> {
  * @param {Object} oldParamas 原信息 
  */
 async function updateUser (
-    {newPassWord, newNickName, newCity, newPicture},
+    {newPassword, newNickName, newCity, newPicture},
     {userName, password}
 ) {
     // 拼接修改内容
     const updateData = {};
-    if(newPassWord) {
-        updateData.password = newPassWord;
+    if(newPassword) {
+        updateData.password = newPassword;
     }
     if(newNickName) {
         updateData.nickName = newNickName;
