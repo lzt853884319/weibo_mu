@@ -138,11 +138,20 @@ async function changePassword(userName, password, newPassword) {
         return new ErrorModel(changePasswordFailInfo);
     }
 }
+/**
+ * 退出登录
+ * @param {ctx} ctx 
+ */
+async function logout(ctx) {
+    delete ctx.session.userInfo;
+    return new SuccessModel();
+}
 module.exports = {
     isExist,
     register,
     login,
     deleteCurUser,
     changeInfo,
-    changePassword
+    changePassword,
+    logout
 };
